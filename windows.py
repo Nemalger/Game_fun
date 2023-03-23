@@ -4,7 +4,7 @@ from kivy.core.audio import SoundLoader
 
 class MenuWindow(Screen):
     def __init__(self, **kwds):
-        self.sound_click = SoundLoader.load('venv/sounds/ckick.wav')
+        self.sound_click = SoundLoader.load('sounds/ckick.wav')
         self.sound_click.volume = 0.1
         super().__init__(**kwds)
     def ButtonClicked(self):
@@ -12,21 +12,21 @@ class MenuWindow(Screen):
         return
 class GameWindow(Screen):
     def __init__(self, **kwds):
-        self.sound_click = SoundLoader.load('venv/sounds/ckick.wav')
+        self.sound_click = SoundLoader.load('sounds/ckick.wav')
         self.sound_click.volume = 0.1
         super().__init__(**kwds)
     def ButtonClicked(self):
         self.sound_click.play()
         return
     def ChangeSource(self):
-        if (self.colonized_source_1.source == "venv/images/planet_1_256_light.png"):
-            if (self.colonized_source_2.source == "venv/images/planet_2_256_light.png"):
-                if (self.colonized_source_3.source != "venv/images/planet_1_256_light.png"):
-                    self.colonized_source_3.source = "venv/images/planet_1_256_light.png"
+        if (self.colonized_source_1.source == "images/planet_1_256_light.png"):
+            if (self.colonized_source_2.source == "images/planet_2_256_light.png"):
+                if (self.colonized_source_3.source != "images/planet_1_256_light.png"):
+                    self.colonized_source_3.source = "images/planet_1_256_light.png"
             else:
-                self.colonized_source_2.source = "venv/images/planet_2_256_light.png"
+                self.colonized_source_2.source = "images/planet_2_256_light.png"
         else:
-            self.colonized_source_1.source = "venv/images/planet_1_256_light.png"
+            self.colonized_source_1.source = "images/planet_1_256_light.png"
 
 
 def PlaySound(sound):
@@ -34,12 +34,12 @@ def PlaySound(sound):
 class SettingsWindow(Screen):
     def __init__(self, **kwds):
         # music
-        self.music = SoundLoader.load('venv/music/ebackground.wav')
+        self.music = SoundLoader.load('music/ebackground.wav')
         self.music.volume = 0
         self.music.bind(on_stop=PlaySound)
         self.music.play()
         # click
-        self.sound_click = SoundLoader.load('venv/sounds/ckick.wav')
+        self.sound_click = SoundLoader.load('sounds/ckick.wav')
         self.sound_click.volume = 0.1
         super().__init__(**kwds)
 

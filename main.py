@@ -8,4 +8,4 @@ class GameApp(App):
         return kv
 
 if __name__ == '__main__':
-    GameApp().run();
+    GameApp().run()
