@@ -21,11 +21,6 @@ class Physics:
         return eval(function['formula'], self.all_constants)
 
 
-physics = Physics()
-print(physics.get_function('food', t = 31536000, p = 8))
-
-
-
 
 
 
