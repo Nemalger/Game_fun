@@ -3,6 +3,7 @@
 WindowManager:
     MenuWindow:
     GameWindow:
+        id: game_window
     SettingsWindow:
 
 <MenuWindow>
@@ -67,7 +68,7 @@ WindowManager:
                 orientation: "vertical"
 
                 Image:
-                    source: "images/planet_1_256_light.png"
+                    source: "venv/images/planet_1_256_light.png"
                     keep_ratio: False
                     # pos_hint: {'x': -0.4, 'y': 0.35}
                 Label:
@@ -75,35 +76,35 @@ WindowManager:
                 BoxLayout:
                     orientation: "horizontal"
                     Image:
-                        source: "images/food_Icon.png"
+                        source: "venv/images/food_Icon.png"
                         keep_ratio: False
                     Label:
                         text: "hello"
                 BoxLayout:
                     orientation: "horizontal"
                     Image:
-                        source: "images/material_Icon.png"
+                        source: "venv/images/material_Icon.png"
                         keep_ratio: False
                     Label:
                         text: "hello"
                 BoxLayout:
                     orientation: "horizontal"
                     Image:
-                        source: "images/human_Icon2.png"
+                        source: "venv/images/human_Icon2.png"
                         keep_ratio: False
                     Label:
                         text: "hello"
                 BoxLayout:
                     orientation: "horizontal"
                     Image:
-                        source: "images/energy_Icon.png"
+                        source: "venv/images/energy_Icon.png"
                         keep_ratio: False
                     Label:
                         text: "hello"
                 BoxLayout:
                     orientation: "horizontal"
                     Image:
-                        source: "images/physonium_Icon.png"
+                        source: "venv/images/physonium_Icon.png"
                         keep_ratio: False
                     Label:
                         text: "hello"
@@ -130,7 +131,7 @@ WindowManager:
             BoxLayout:
                 orientation: "vertical"
                 Image:
-                    source: "images/planet_2_256_light.png"
+                    source: "venv/images/planet_2_256_light.png"
                     keep_ratio: False
                     # pos_hint: {'x': -0.4, 'y': 0.35}
                 Label:
@@ -138,35 +139,35 @@ WindowManager:
                 BoxLayout:
                     orientation: "horizontal"
                     Image:
-                        source: "images/food_Icon.png"
+                        source: "venv/images/food_Icon.png"
                         keep_ratio: False
                     Label:
                         text: "hello"
                 BoxLayout:
                     orientation: "horizontal"
                     Image:
-                        source: "images/material_Icon.png"
+                        source: "venv/images/material_Icon.png"
                         keep_ratio: False
                     Label:
                         text: "hello"
                 BoxLayout:
                     orientation: "horizontal"
                     Image:
-                        source: "images/human_Icon2.png"
+                        source: "venv/images/human_Icon2.png"
                         keep_ratio: False
                     Label:
                         text: "hello"
                 BoxLayout:
                     orientation: "horizontal"
                     Image:
-                        source: "images/energy_Icon.png"
+                        source: "venv/images/energy_Icon.png"
                         keep_ratio: False
                     Label:
                         text: "hello"
                 BoxLayout:
                     orientation: "horizontal"
                     Image:
-                        source: "images/physonium_Icon.png"
+                        source: "venv/images/physonium_Icon.png"
                         keep_ratio: False
                     Label:
                         text: "hello"
@@ -181,7 +182,7 @@ WindowManager:
                 orientation: "vertical"
 
                 Image:
-                    source: "images/planet_1_256_light.png"
+                    source: "venv/images/planet_1_256_light.png"
                     keep_ratio: False
                     # pos_hint: {'x': -0.4, 'y': 0.35}
                 Label:
@@ -189,35 +190,35 @@ WindowManager:
                 BoxLayout:
                     orientation: "horizontal"
                     Image:
-                        source: "images/food_Icon.png"
+                        source: "venv/images/food_Icon.png"
                         keep_ratio: False
                     Label:
                         text: "hello"
                 BoxLayout:
                     orientation: "horizontal"
                     Image:
-                        source: "images/material_Icon.png"
+                        source: "venv/images/material_Icon.png"
                         keep_ratio: False
                     Label:
                         text: "hello"
                 BoxLayout:
                     orientation: "horizontal"
                     Image:
-                        source: "images/human_Icon2.png"
+                        source: "venv/images/human_Icon2.png"
                         keep_ratio: False
                     Label:
                         text: "hello"
                 BoxLayout:
                     orientation: "horizontal"
                     Image:
-                        source: "images/energy_Icon.png"
+                        source: "venv/images/energy_Icon.png"
                         keep_ratio: False
                     Label:
                         text: "hello"
                 BoxLayout:
                     orientation: "horizontal"
                     Image:
-                        source: "images/physonium_Icon.png"
+                        source: "venv/images/physonium_Icon.png"
                         keep_ratio: False
                     Label:
                         text: "hello"
@@ -231,16 +232,20 @@ WindowManager:
                 orientation: "vertical"
                 spacing: 10
                 Label:
+                    id: clock
+                    text: '0'
+                    font_size: 30
+                Label:
                     text: "Colonized planets:"
                 Image:
                     id: colonized_planet_1
-                    source: "images/planet_1_256_dark.png"
+                    source: "venv/images/planet_1_256_dark.png"
                 Image:
                     id: colonized_planet_2
-                    source: "images/planet_2_256_dark.png"
+                    source: "venv/images/planet_2_256_dark.png"
                 Image:
                     id: colonized_planet_3
-                    source: "images/planet_1_256_dark.png"
+                    source: "venv/images/planet_1_256_dark.png"
 
 
                 Button:
