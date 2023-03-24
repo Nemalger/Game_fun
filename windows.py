@@ -54,6 +54,11 @@ class GameWindow(Screen):
             return True
         else:
             return False
+    def IsReqForPlanet_2(self):
+        if (self.GetCurrentHuman() >= int(self.resources_2.values[0])) and (self.GetCurrentFood() >= int(self.resources_2.values[1])) and (self.GetCurrentEnergy() >= int(self.resources_2.values[2])) and (self.GetCurrentMaterial() >= int(self.resources_2.values[3])):
+            return True
+        else:
+            return False
     def SpeedFood(self, *args):
         self.food_speed.text = str(args[1] * 3)
     def SpeedEnergy(self, *args):
@@ -64,15 +69,12 @@ class GameWindow(Screen):
         self.physonium_speed.text = str(round(args[1] / 100, 2))
 
 
-
-
-
     def TryToColonize(self, value):
         if value == 1:
             if self.IsReqForPlanet_1():
                 self.planet_1_colonize.source = "images/planet_1_256_light.png"
         if value == 2:
-            if self.IsReqForPlanet_1():
+            if self.IsReqForPlanet_2():
                 self.planet_2_colonize.source = "images/planet_2_256_light.png"
         print(self.GetCurrentPhysonium())
 
