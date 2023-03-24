@@ -13,8 +13,8 @@ class GameApp(App):
         self.time = 0
 
     def update(self, dt):
-        self.time += dt
-        self.root.ids['game_window'].ids['clock'].text = f"{self.time: .2f}"
+        self.time += dt / 5
+        self.root.ids['game_window'].ids['clock'].text = f"{self.time: .0f}"
 
 
 

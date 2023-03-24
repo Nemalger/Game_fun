@@ -6,6 +6,7 @@
 WindowManager:
     MenuWindow:
     GameWindow:
+        id: game_window
     SettingsWindow:
 
 <MenuWindow>
@@ -265,7 +266,7 @@ WindowManager:
             text: "Day:"
             pos_hint: {'center': (0.85, 0.35)}
         Label:
-            id: time_day
+            id: clock
             text: "0"
             pos_hint: {'center': (0.91, 0.35)}
         Label:
