@@ -12,7 +12,7 @@ Variable parameters:
   h:  Growth_constant/g
   #средняя температура планеты
   T:  k * stellar_constant
-  #Энергия от солнечных панелей
+  #Энергия от солнечных панелей 
   E_silar_panel:  0.24 * stellar_constant
   #Энергия от ядерных реакторов
   E_nuclear_reactor:  (0.6 * 5555)/(C * 633)
@@ -27,7 +27,7 @@ Functions:
       -t
     formula:
       t*(E_silar_panel + E_nuclear_reactor) *(1/374)
-
+  
   population:
     arguments:
       -t
