@@ -19,26 +19,31 @@ Variable parameters:
 Functions:
   food:
     arguments:
-      -People
       - t
-    formula: 0.25*T * (h ** 2) * (t)
+      - p
+      - P
+    formula: (0.25*T *(h**2) * t * (p/100)) - (P/200)
   energy:
     arguments:
       -t
+      -p
     formula:
-      t*(E_silar_panel + E_nuclear_reactor) *(1/374)
+      t*(((E_silar_panel + E_nuclear_reactor) *(1/374)) * p/1000)
   
   population:
     arguments:
       -t
       -food
       -energy
+
     formula:
-      4.8 * ((food + energy) ** 3/2) - (5 * t)
+      1.8 * ((2*food + 0.2*energy) ** 1/2) - (t * 5)
   resources:
     arguments:
       -t
       -people
       -energy
     formula:
-      t*((0.25* people + energy) - g) if t*((0.25* people + energy) - g) > 0 else 0
+      t*((0.15* (people/1000 * energy) - g)) if t*((0.15* people + energy) - g) > 0 else 0
+
+

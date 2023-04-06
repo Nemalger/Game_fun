@@ -4,7 +4,7 @@ from pprint import pprint
 class Physics:
 
     def __init__(self):
-        with open('Config.YAML') as f:
+        with open('Mathematics/Config.YAML') as f:
             templates = yaml.safe_load(f)
         self.all_constants = templates['Base const']
         variable_parameters = templates['Variable parameters']
