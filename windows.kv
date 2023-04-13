@@ -1,5 +1,64 @@
-<Button>:
-    font_size: 32
+
+<Planet>:
+    orientation: "vertical"
+    size_hint: 0.3, 0.8
+    pos_hint: {"center": (root.pos_x, root.pos_y)}
+
+    Image:
+        size_hint: 2, 2
+
+        source: f"images/planet_{root.number_of_planet}_256_dark.png"
+    Label:
+        id: status
+        text: root.status
+    Label:
+        text: "Planet resources:"
+        bold: True
+    BoxLayout:
+        Image:
+            source: "images/human_Icon2.png"
+        Label:
+            id: humans
+            text: f"{root.humans}"
+    BoxLayout:
+        Image:
+            source: "images/food_Icon.png"
+        Label:
+            id: food
+            text: f"{root.food}"
+    BoxLayout:
+        Image:
+            source: "images/energy_Icon.png"
+        Label:
+            id: energy
+            text: f"{root.energy}"
+    BoxLayout:
+        Image:
+            source: "images/material_Icon.png"
+        Label:
+            id: materials
+            text: f"{root.materials}"
+    BoxLayout:
+        Image:
+            source: "images/physonium_Icon.png"
+
+        Label:
+            id: physonium
+            text: f"{root.physonium}"
+
+    Button:
+        id: try_to_colonize
+
+        size_hint: 0.3, 0.2
+        text: "Try to colonize!"
+        background_normal: ''
+        background_color: (1, 0.7, 0.2, 1)
+        bold: True
+        outline_color: (0, 0, 0)
+        outline_width: 2
+        on_press: root.ButtonClicked()
+        on_release: root.TryToColonize(1)
+
 
 
 
@@ -31,6 +90,7 @@ WindowManager:
             on_release:
                 app.root.current = "Game"
                 root.manager.transition.direction = "down"
+                app.time = 0
 
             background_normal: ''
             background_color: (1, 0.3, 0, 1)
@@ -65,356 +125,25 @@ WindowManager:
 
 <GameWindow>
     name: "Game"
-    planet_1_colonize: planet_1
-    planet_2_colonize: planet_2
-    humans: humans_amount
-    food: food_amount
-    material: material_amount
-    energy: energy_amount
-    physonium: physonium_amount
-    resources_1: req_planet_1
-    resources_2: req_planet_2
-    food_speed: food_per_day
-    material_speed: material_per_day
-    energy_speed: energy_per_day
-    physonium_speed: physonium_per_day
     FloatLayout:
-        size: root.width, root.height
+        Planet:
+            number_of_planet: 2
+            status: "Not Colonized"
+            humans: 1
+            food: 100
+            energy: 1
+            materials: 1
+            physonium: 1
+            pos_x: 0.12
+            pos_y: 0.6
 
-        padding: 30
-
-        Spinner:
-            id: req_planet_1
-            pos_hint: {'center': (0.1, 0.88)}
-            size_hint: 0.2, 0.2
-            background_color: 1, 0, 0, 0
-
-            values: "20000", "1203", "200", "10040", "0"
-
-
-
-        Image:
-            id: planet_1
-            size_hint: 0.2, 0.2
-            pos_hint: {'center': (0.1, 0.85)}
-
-            source: "images/planet_1_256_dark.png"
-# planet resources:
-        Label:
-            text: "Planet resources:"
-            bold: True
-            pos_hint: {'center': (0.1, 0.7)}
-
-        Image:
-            source: "images/human_Icon2.png"
-            pos_hint: {'center': (0.04, 0.65)}
-        Label:
-            text: "0"
-            pos_hint: {'center': (0.1, 0.65)}
-        Image:
-            source: "images/food_Icon.png"
-            pos_hint: {'center': (0.038, 0.6)}
-        Label:
-            text: "2000"
-            pos_hint: {'center': (0.1, 0.6)}
-        Image:
-            source: "images/energy_Icon.png"
-            pos_hint: {'center': (0.038, 0.55)}
-        Label:
-            text: "28573"
-            pos_hint: {'center': (0.1, 0.55)}
-        Image:
-            source: "images/material_Icon.png"
-            pos_hint: {'center': (0.038, 0.5)}
-        Label:
-            text: "10538"
-            pos_hint: {'center': (0.1, 0.5)}
-        Image:
-            source: "images/physonium_Icon.png"
-            pos_hint: {'center': (0.038, 0.45)}
-        Label:
-            text: "354"
-            pos_hint: {'center': (0.1, 0.45)}
-        Button:
-            id: planet_1_btn
-            pos_hint: {'center': (0.1, 0.4)}
-            size_hint: 0.18, 0.07
-            text: "Try to colonize!"
-            background_normal: ''
-            background_color: (1, 0.7, 0.2, 1)
-            bold: True
-            outline_color: (0, 0, 0)
-            outline_width: 2
-            on_press: root.ButtonClicked()
-            on_release: root.TryToColonize(1)
-
-# second planet
-        Spinner:
-            id: req_planet_2
-            pos_hint: {'center': (0.3, 0.88)}
-            size_hint: 0.2, 0.2
-            background_color: 0, 0, 0, 0
-            values: "40000", "1203", "200", "10040", "0"
-
-
-
-        Image:
-            id: planet_2
-            size_hint: 0.2, 0.2
-            pos_hint: {'center': (0.3, 0.85)}
-
-            source: "images/planet_2_256_dark.png"
-
-        Label:
-            text: "Planet resources:"
-            bold: True
-            pos_hint: {'center': (0.3, 0.7)}
-
-        Image:
-            source: "images/human_Icon2.png"
-            pos_hint: {'center': (0.24, 0.65)}
-        Label:
-            text: "0"
-            pos_hint: {'center': (0.3, 0.65)}
-        Image:
-            source: "images/food_Icon.png"
-            pos_hint: {'center': (0.238, 0.6)}
-        Label:
-            text: "2000"
-            pos_hint: {'center': (0.3, 0.6)}
-        Image:
-            source: "images/energy_Icon.png"
-            pos_hint: {'center': (0.238, 0.55)}
-        Label:
-            text: "28573"
-            pos_hint: {'center': (0.3, 0.55)}
-        Image:
-            source: "images/material_Icon.png"
-            pos_hint: {'center': (0.238, 0.5)}
-        Label:
-            text: "10538"
-            pos_hint: {'center': (0.3, 0.5)}
-        Image:
-            source: "images/physonium_Icon.png"
-            pos_hint: {'center': (0.238, 0.45)}
-        Label:
-            text: "354"
-            pos_hint: {'center': (0.3, 0.45)}
-        Button:
-            id: planet_2_btn
-            pos_hint: {'center': (0.3, 0.4)}
-            size_hint: 0.18, 0.07
-            text: "Try to colonize!"
-            background_normal: ''
-            background_color: (1, 0.7, 0.2, 1)
-            bold: True
-            outline_color: (0, 0, 0)
-            outline_width: 2
-            on_press: root.ButtonClicked()
-            on_release: root.TryToColonize(2)
-
-# your planet and resources
-        Image:
-            source: "images/planet_1_256_light.png"
-            size_hint: 0.2, 0.2
-            pos_hint: {'center': (0.85, 0.85)}
-        Label:
-            text: "Current resources:"
-            bold: True
-            pos_hint: {'center': (0.85, 0.7)}
-
-        Image:
-            source: "images/human_Icon2.png"
-            pos_hint: {'center': (0.79, 0.65)}
-        Label:
-            id: humans_amount
-            text: "2000"
-            pos_hint: {'center': (0.85, 0.65)}
-        Image:
-            source: "images/food_Icon.png"
-            pos_hint: {'center': (0.788, 0.6)}
-        Label:
-            text: "1000"
-            id: food_amount
-            pos_hint: {'center': (0.85, 0.6)}
-        Image:
-            source: "images/energy_Icon.png"
-            pos_hint: {'center': (0.788, 0.55)}
-        Label:
-            text: "1000"
-            id: energy_amount
-            pos_hint: {'center': (0.85, 0.55)}
-        Image:
-            source: "images/material_Icon.png"
-            pos_hint: {'center': (0.788, 0.5)}
-        Label:
-            text: "100"
-            id: material_amount
-            pos_hint: {'center': (0.85, 0.5)}
-        Image:
-            source: "images/physonium_Icon.png"
-            pos_hint: {'center': (0.788, 0.45)}
-        Label:
-            text: "10"
-            id: physonium_amount
-            pos_hint: {'center': (0.85, 0.45)}
-# some stats:
-        Label:
-            text: "_______Stats:_______"
-            pos_hint: {'center': (0.85, 0.4)}
-            bold: True
-
-        Label:
-            text: "Day:"
-            pos_hint: {'center': (0.85, 0.35)}
         Label:
             id: clock
-            text: "0"
-            pos_hint: {'center': (0.91, 0.35)}
-        Label:
-            text: "Food/day:"
-            pos_hint: {'center': (0.85, 0.3)}
-        Label:
-            id: food_per_day
-            text: "0"
-            pos_hint: {'center': (0.95, 0.3)}
-        Label:
-            text: "Material/day:"
-            pos_hint: {'center': (0.85, 0.25)}
-        Label:
-            id: material_per_day
-            text: "0"
-            pos_hint: {'center': (0.95, 0.25)}
-        Label:
-            text: "Physonium/day:"
-            pos_hint: {'center': (0.85, 0.2)}
-        Label:
-            id: physonium_per_day
-            text: "0"
-            pos_hint: {'center': (0.95, 0.2)}
-        Label:
-            text: "Energy/day:"
-            pos_hint: {'center': (0.85, 0.15)}
-        Label:
-            id: energy_per_day
-            text: "0"
-            pos_hint: {'center': (0.95, 0.15)}
-
-# constants changing menu:
-
-        Label:
-            text: "__Constats you could change:__"
-            bold: True
-            pos_hint: {'center': (0.6, 0.92)}
-
-
-        Label:
-            text: "constant #1 = "
-            pos_hint: {'center': (0.50, 0.87)}
-        Label:
-            id: "const_1"
-            text: "87583"
-            pos_hint: {'center': (0.60, 0.87)}
-        Label:
-            id: "cost_const_1"
-            text: "100"
-            pos_hint: {'center': (0.5, 0.82)}
-        Image:
-            source: "images/physonium_Icon.png"
-            pos_hint: {'center': (0.45, 0.82)}
-        Button:
-            text: "+500"
-            size_hint: 0.05, 0.05
-            pos_hint: {'center': (0.55, 0.82)}
-            on_press: root.ButtonClicked()
-            background_normal: ''
-            background_color: (1, 0.7, 0.2, 1)
-            bold: True
-            outline_color: (0, 0, 0)
-            outline_width: 1
-        Button:
-            text: "-500"
-            size_hint: 0.05, 0.05
-            pos_hint: {'center': (0.60, 0.82)}
-            on_press: root.ButtonClicked()
-            background_normal: ''
-            background_color: (1, 0.7, 0.2, 1)
-            bold: True
-            outline_color: (0, 0, 0)
-            outline_width: 1
-
-        Label:
-            text: "constant #2 = "
-            pos_hint: {'center': (0.50, 0.77)}
-        Label:
-            id: "const_2"
-            text: "87583"
-            pos_hint: {'center': (0.60, 0.77)}
-        Label:
-            id: "cost_const_2"
-            text: "100"
-            pos_hint: {'center': (0.5, 0.72)}
-        Image:
-            source: "images/physonium_Icon.png"
-            pos_hint: {'center': (0.45, 0.72)}
-        Button:
-            text: "+500"
-            size_hint: 0.05, 0.05
-            pos_hint: {'center': (0.55, 0.72)}
-            on_press: root.ButtonClicked()
-            background_normal: ''
-            background_color: (1, 0.7, 0.2, 1)
-            bold: True
-            outline_color: (0, 0, 0)
-            outline_width: 1
-        Button:
-            text: "-500"
-            size_hint: 0.05, 0.05
-            pos_hint: {'center': (0.60, 0.72)}
-            on_press: root.ButtonClicked()
-            background_normal: ''
-            background_color: (1, 0.7, 0.2, 1)
-            bold: True
-            outline_color: (0, 0, 0)
-            outline_width: 1
-
-        Label:
-            text: "constant #3 = "
-            pos_hint: {'center': (0.50, 0.67)}
-        Label:
-            id: "const_3"
-            text: "0.3"
-            pos_hint: {'center': (0.60, 0.67)}
-        Label:
-            id: "cost_const_3"
-            text: "250"
-            pos_hint: {'center': (0.5, 0.62)}
-        Image:
-            source: "images/physonium_Icon.png"
-            pos_hint: {'center': (0.45, 0.62)}
-        Button:
-            text: "+0.01"
-            size_hint: 0.05, 0.05
-            pos_hint: {'center': (0.55, 0.62)}
-            on_press: root.ButtonClicked()
-            background_normal: ''
-            background_color: (1, 0.7, 0.2, 1)
-            bold: True
-            outline_color: (0, 0, 0)
-            outline_width: 1
-        Button:
-            text: "-0.01"
-            size_hint: 0.05, 0.05
-            pos_hint: {'center': (0.60, 0.62)}
-            on_press: root.ButtonClicked()
-            background_normal: ''
-            background_color: (1, 0.7, 0.2, 1)
-            bold: True
-            outline_color: (0, 0, 0)
-            outline_width: 1
-
+            text: "Day:"
+            pos_hint: {'center': (0.85, 0.35)}
 
         Button:
+
             text: "Back"
 
             on_press: root.ButtonClicked()
@@ -428,99 +157,6 @@ WindowManager:
             bold: True
             outline_color: (0, 0, 0)
             outline_width: 2
-#---- Labour---------
-        Label:
-            text: "___________Labour:___________"
-            bold: True
-            pos_hint: {'center': (0.55, 0.57)}
-
-
-        Image:
-            source: "images/food_Icon.png"
-            pos_hint: {'center': (0.45, 0.52)}
-        Label:
-            text: "Food:"
-            pos_hint: {'center': (0.50, 0.52)}
-        Image:
-            source: "images/human_Icon2.png"
-            pos_hint: {'center': (0.65, 0.47)}
-        Slider:
-            id: food/humans
-            size_hint: 0.2, 0.1
-            pos_hint: {'center': (0.55, 0.47)}
-
-            min: 0
-            max: 1000
-            step: 1
-            orientation: "horizontal"
-            value: 0
-            on_value: root.SpeedFood(*args)
-
-
-        Image:
-            source: "images/energy_Icon.png"
-            pos_hint: {'center': (0.45, 0.42)}
-        Label:
-            text: "Energy:"
-            pos_hint: {'center': (0.51, 0.42)}
-        Image:
-            source: "images/human_Icon2.png"
-            pos_hint: {'center': (0.65, 0.37)}
-        Slider:
-            id: energy/humans
-            size_hint: 0.2, 0.1
-            pos_hint: {'center': (0.55, 0.37)}
-
-            min: 0
-            max: 1000
-            step: 1
-            orientation: "horizontal"
-            value: 0
-            on_value: root.SpeedEnergy(*args)
-
-
-        Image:
-            source: "images/material_Icon.png"
-            pos_hint: {'center': (0.45, 0.32)}
-        Label:
-            text: "Materials:"
-            pos_hint: {'center': (0.52, 0.32)}
-        Image:
-            source: "images/human_Icon2.png"
-            pos_hint: {'center': (0.65, 0.27)}
-        Slider:
-            id: material/humans
-            size_hint: 0.2, 0.1
-            pos_hint: {'center': (0.55, 0.27)}
-
-            min: 0
-            max: 1000
-            step: 1
-            orientation: "horizontal"
-            value: 0
-            on_value: root.SpeedMaterial(*args)
-
-
-        Image:
-            source: "images/physonium_Icon.png"
-            pos_hint: {'center': (0.45, 0.22)}
-        Label:
-            text: "Physonium:"
-            pos_hint: {'center': (0.53, 0.22)}
-        Image:
-            source: "images/human_Icon2.png"
-            pos_hint: {'center': (0.65, 0.17)}
-        Slider:
-            id: physonium/humans
-            size_hint: 0.2, 0.1
-            pos_hint: {'center': (0.55, 0.17)}
-
-            min: 0
-            max: 1000
-            step: 1
-            orientation: "horizontal"
-            value: 0
-            on_value: root.SpeedPhysonium(*args)
 
 
 # ----------------------------------------------

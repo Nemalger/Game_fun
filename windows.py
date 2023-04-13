@@ -3,8 +3,30 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.audio import SoundLoader
 from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button
-
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
+from kivy.properties import NumericProperty, StringProperty
+
+class Resources():
+    def __init__(self, humans, food, energy, materials, physonium):
+        self.humans = humans
+        self.materials = materials
+        self.food = food
+        self.energy = energy
+        self.physonium = physonium
+class Planet(BoxLayout):
+    number_of_planet = NumericProperty()
+    # planet_resources = Resources(NumericProperty(), NumericProperty(), NumericProperty(), NumericProperty(), NumericProperty())
+    status = StringProperty()
+    humans = NumericProperty()
+    food = NumericProperty()
+    energy = NumericProperty()
+    materials = NumericProperty()
+    physonium = NumericProperty()
+    pos_x = NumericProperty()
+    pos_y = NumericProperty()
+
+
 
 
 
