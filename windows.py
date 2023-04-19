@@ -16,7 +16,7 @@ class Resources():
         self.physonium = physonium
 class Planet(BoxLayout):
     number_of_planet = NumericProperty()
-    # planet_resources = Resources(NumericProperty(), NumericProperty(), NumericProperty(), NumericProperty(), NumericProperty())
+    # planet_resources = ObjectProperty()
     status = StringProperty()
     humans = NumericProperty()
     food = NumericProperty()
@@ -25,10 +25,30 @@ class Planet(BoxLayout):
     physonium = NumericProperty()
     pos_x = NumericProperty()
     pos_y = NumericProperty()
+    def new_planet(self, num, status, humans, food, energy, materials, physonium):
+        self.number_of_planet = num
+        self.status = status
+        self.humans = humans
+        self.food = food
+        self.energy = energy
+        self.materials = materials
+        self.physonium = physonium
+        return self
 
 
-
-
+def planets_setup():
+    planet_1 = Planet()
+    planet_1.new_planet(1, "Colonized", 2000, 3000, 100, 40, 0)
+    planet_2 = Planet()
+    planet_2.new_planet(2, "Not colonized", 0, 20000, 1000, 570, 20)
+class PlanetInfoWindow(Screen):
+    def __init__(self, **kwds):
+        self.sound_click = SoundLoader.load('sounds/ckick.wav')
+        self.sound_click.volume = 0.1
+        super().__init__(**kwds)
+    def ButtonClicked(self):
+        self.sound_click.play()
+        return
 
 class MenuWindow(Screen):
     def __init__(self, **kwds):
@@ -38,28 +58,27 @@ class MenuWindow(Screen):
     def ButtonClicked(self):
         self.sound_click.play()
         return
-class GameWindow(Screen):
+class MapOfPlanetsWindow(Screen):
     def __init__(self, **kwds):
-
         self.drop_down_But1 = DropBut()
-
-
-
         self.sound_click = SoundLoader.load('sounds/ckick.wav')
         self.sound_click.volume = 0.1
         super().__init__(**kwds)
+
+    def to_planet_info(self, number_of_planet):
+        pass
     def ButtonClicked(self):
         self.sound_click.play()
         return
-    def ChangeSource(self):
-        if (self.colonized_source_1.source == "images/planet_1_256_light.png"):
-            if (self.colonized_source_2.source == "images/planet_2_256_light.png"):
-                if (self.colonized_source_3.source != "images/planet_1_256_light.png"):
-                    self.colonized_source_3.source = "images/planet_1_256_light.png"
-            else:
-                self.colonized_source_2.source = "images/planet_2_256_light.png"
-        else:
-            self.colonized_source_1.source = "images/planet_1_256_light.png"
+    # def ChangeSource(self):
+    #     if (self.colonized_source_1.source == "images/planet_1_256_light.png"):
+    #         if (self.colonized_source_2.source == "images/planet_2_256_light.png"):
+    #             if (self.colonized_source_3.source != "images/planet_1_256_light.png"):
+    #                 self.colonized_source_3.source = "images/planet_1_256_light.png"
+    #         else:
+    #             self.colonized_source_2.source = "images/planet_2_256_light.png"
+    #     else:
+    #         self.colonized_source_1.source = "images/planet_1_256_light.png"
 
     def GetCurrentHuman(self):
         return int(self.humans.text)
@@ -89,6 +108,7 @@ class GameWindow(Screen):
         self.material_speed.text = str(round(args[1] / 13 * 2, 2))
     def SpeedPhysonium(self, *args):
         self.physonium_speed.text = str(round(args[1] / 100, 2))
+
 
 
     def TryToColonize(self, value):

@@ -19,7 +19,7 @@ class GameApp(App):
 
     def update(self, dt):
         self.time += dt
-        self.root.ids['game_window'].ids['clock'].text = f"{self.time: .0f}"
+        self.root.ids['MapOfPlanets_window'].ids['clock'].text = f"{self.time: .0f}"
 
 
        # self.root.ids['game_window'].ids['food_amount'].text =  str(int(self.root.ids['game_window'].ids['food_amount'].text) +int(phys.get_function('food', t = self.time, p = int(self.root.ids['game_window'].ids['food/humans'].value), P= int(self.root.ids['game_window'].ids['humans_amount'].text))))
