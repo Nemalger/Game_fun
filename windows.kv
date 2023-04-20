@@ -227,8 +227,8 @@ WindowManager:
             pos_y: 0.6
         BoxLayout:
             orientation: "vertical"
-            #size_hint: 0.33, 0.8
-            pos_hint: {"center": (0.47, 0.6)}
+            size_hint: 0.33, 0.8
+            pos_hint: {'center': (0.45, 0.6)}
 
             Label:
                 text: "Manufactures:"
@@ -240,8 +240,8 @@ WindowManager:
                 max: showing_planet.humans
                 step: 1
                 #pos_hint: {'center': (0.45, 0.8)}
-                size_hint: (0.2, 0.1)
-                value_track_color: 1, 0, 0, 1
+                size_hint: (0.8, 0.1)
+
                 cursor_image: "images/human_Icon.png"
             Label:
                 text: str(int(food_manufacture.value))
@@ -257,7 +257,7 @@ WindowManager:
                 cursor_image: "images/human_Icon.png"
             Label:
                 text: str(int(energy_manufacture.value))
-                pos_hint: {'center': (0.6, 0.7)}
+                #pos_hint: {'center': (0.6, 0.7)}
 
             Slider:
                 id: materials_manufacture

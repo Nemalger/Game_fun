@@ -23,17 +23,19 @@ class Planet(BoxLayout):
     energy = NumericProperty()
     materials = NumericProperty()
     physonium = NumericProperty()
+
     pos_x = NumericProperty()
     pos_y = NumericProperty()
-    def new_planet(self, num, status, humans, food, energy, materials, physonium):
-        self.number_of_planet = num
-        self.status = status
-        self.humans = humans
-        self.food = food
-        self.energy = energy
-        self.materials = materials
-        self.physonium = physonium
-        return self
+
+    # def new_planet(self, num, status, humans, food, energy, materials, physonium):
+    #     self.number_of_planet = num
+    #     self.status = status
+    #     self.humans = humans
+    #     self.food = food
+    #     self.energy = energy
+    #     self.materials = materials
+    #     self.physonium = physonium
+    #     return self
 
 
 def planets_setup():
