@@ -1,0 +1,92 @@
+<Button>:
+    font_size: 32
+
+
+WindowManager:
+    MenuWindow:
+    PlanetWindow:
+        id: planet_window
+
+<MenuWindow>
+    name: "Menu"
+    FloatLayout:
+        size: root.width, root.height * 0.66
+        Label:
+            text: "Team ABOBA presented:"
+            font_size: 60
+            pos_hint: {'center': (0.5, 0.9)}
+        Label:
+            text: "Star Sector 2.0"
+            font_size: 65
+            bold: True
+            pos_hint: {'center': (0.5, 0.83)}
+        Button:
+            text: "Play"
+
+            pos_hint: {'x': 0.40, 'y': 0.45}
+            size_hint: (0.2, 0.1)
+            on_release:
+                app.root.current = "Planet"
+                root.manager.transition.direction = "down"
+
+            background_normal: ''
+            background_color: (1, 0.3, 0, 1)
+            bold: True
+            outline_color: (0, 0, 0)
+            outline_width: 2
+
+        Button:
+            text: "Settings"
+
+            pos_hint: {'x': 0.4, 'y': 0.33}
+            size_hint: (0.2, 0.1)
+#            on_release:
+#                app.root.current = "Settings"
+#                root.manager.transition.direction = "left"
+            background_normal: ''
+            background_color: (1, 0.7, 0.2, 1)
+            bold: True
+            outline_color: (0, 0, 0)
+            outline_width: 2
+
+        Button:
+            text: "Leave"
+            background_normal: ''
+            size_hint: (None, None)
+            width: 200
+            height: 100
+            background_color: (1, 0.7, 0.2, 1)
+
+<PlanetWindow>:
+    name: "Planet"
+    FloatLayout:
+        size: root.width, root.height * 0.66
+        Label:
+            id: population_count
+            text: f"Population: {root.planet.population}"
+            font_size: 30
+            pos_hint: {'center': (0.4, 0.6)}
+
+        Label:
+            id: food
+            text: f"Food amount: {root.planet.food_amount}"
+            font_size: 30
+            pos_hint: {'center': (0.3, 0.5)}
+
+        Label:
+            id: energy
+            text: f"Energy amount: {root.planet.energy_amount}"
+            font_size: 30
+            pos_hint: {'center': (0.2, 0.1)}
+
+        Label:
+            id: materials
+            text: f"Materials amount: {root.planet.material_amount}"
+            font_size: 30
+            pos_hint: {'center': (0.6, 0.7)}
+
+        Image:
+            id: planet
+            size_hint: 0.2, 0.2
+            pos_hint: {'center': (0.1, 0.85)}
+            source: "Images/planet_1_256_light.png"
