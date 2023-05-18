@@ -6,57 +6,95 @@ from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.properties import NumericProperty, StringProperty
-
-class Resources():
-    def __init__(self, humans, food, energy, materials, physonium):
-        self.humans = humans
-        self.materials = materials
-        self.food = food
-        self.energy = energy
-        self.physonium = physonium
+#
+# class Resources():
+#     def __init__(self, humans, food, energy, materials, physonium):
+#         self.humans = humans
+#         self.materials = materials
+#         self.food = food
+#         self.energy = energy
+#         self.physonium = physonium
 class Planet(BoxLayout):
     number_of_planet = NumericProperty()
-    # planet_resources = ObjectProperty()
+
     status = StringProperty()
     humans = NumericProperty()
     food = NumericProperty()
     energy = NumericProperty()
     materials = NumericProperty()
     physonium = NumericProperty()
+    im_source = StringProperty()
 
     pos_x = NumericProperty()
     pos_y = NumericProperty()
 
-    # def new_planet(self, num, status, humans, food, energy, materials, physonium):
-    #     self.number_of_planet = num
-    #     self.status = status
-    #     self.humans = humans
-    #     self.food = food
-    #     self.energy = energy
-    #     self.materials = materials
-    #     self.physonium = physonium
-    #     return self
 
+class PlanetData:
+    def __init__(self, num, status, humans, food, energy, materials, physonium, food_factory, energy_factory, materials_factory, physonium_factory):
+        self.num_of_planet = num
+        self.status = status
+        self.humans = humans
+        self.food = food
+        self.energy = energy
+        self.materials = materials
+        self.physonium = physonium
+        self.food_factory = food_factory
+        self.energy_factory = energy_factory
+        self.materials_factory = materials_factory
+        self.physonium_factory = physonium_factory
 
-def planets_setup():
-    planet_1 = Planet()
-    planet_1.new_planet(1, "Colonized", 2000, 3000, 100, 40, 0)
-    planet_2 = Planet()
-    planet_2.new_planet(2, "Not colonized", 0, 20000, 1000, 570, 20)
+    def update(self, dt):
+        pass
+
+class DataBase:
+
+    planet_1 = PlanetData(1, "Colonized", 2000, 3000, 200, 40, 0, 1, 0, 0, 0)
+    planet_2 = PlanetData(2, "Not colonized", 0, 4000, 1000, 160, 23, 0, 0, 0, 0)
+    planet_3 = PlanetData(3, "Not colonized", 0, 8000, 2000, 520, 80, 0, 0, 0, 0)
+    def get_planet(self, index):
+        if index == 1:
+            return self.planet_1
+        elif index == 2:
+            return self.planet_2
+        elif index == 3:
+            return self.planet_3
+
 class PlanetInfoWindow(Screen):
     def __init__(self, **kwds):
         self.sound_click = SoundLoader.load('sounds/ckick.wav')
         self.sound_click.volume = 0.1
+        self.current_planet = 1
         super().__init__(**kwds)
     def ButtonClicked(self):
         self.sound_click.play()
         return
+    def update_planet(self, num):
+
+        current = self.parent.planets_data.get_planet(num)
+        self.ids['showing_planet'].number_of_planet = num
+        self.ids['showing_planet'].status = current.status
+        self.ids['showing_planet'].humans = current.humans
+        self.ids['showing_planet'].food = current.food
+        self.ids['showing_planet'].energy = current.energy
+        self.ids['showing_planet'].materials = current.materials
+        self.ids['showing_planet'].physonium = current.physonium
+        self.ids['food_factory'].text = str(current.food_factory)
+        self.ids['energy_factory'].text = str(current.energy_factory)
+        self.ids['materials_factory'].text = str(current.materials_factory)
+        self.ids['physonium_factory'].text = str(current.physonium_factory)
+        if current.status == "Colonized":
+            self.ids['showing_planet'].im_source = f"images/planet_{num}_256_light.png"
+        elif current.status == "Not colonized":
+            self.ids['showing_planet'].im_source = f"images/planet_{num}_256_dark.png"
+
 
 class MenuWindow(Screen):
     def __init__(self, **kwds):
+
         self.sound_click = SoundLoader.load('sounds/ckick.wav')
         self.sound_click.volume = 0.1
         super().__init__(**kwds)
+
     def ButtonClicked(self):
         self.sound_click.play()
         return
@@ -67,8 +105,9 @@ class MapOfPlanetsWindow(Screen):
         self.sound_click.volume = 0.1
         super().__init__(**kwds)
 
-    def to_planet_info(self, number_of_planet):
-        pass
+    # def to_planet_info(self, number_of_planet):
+    #     planet = self.root.parent.planets_data.get_planet(number_of_planet)
+
     def ButtonClicked(self):
         self.sound_click.play()
         return
@@ -81,36 +120,6 @@ class MapOfPlanetsWindow(Screen):
     #             self.colonized_source_2.source = "images/planet_2_256_light.png"
     #     else:
     #         self.colonized_source_1.source = "images/planet_1_256_light.png"
-
-    def GetCurrentHuman(self):
-        return int(self.humans.text)
-    def GetCurrentFood(self):
-        return int(self.food.text)
-    def GetCurrentEnergy(self):
-        return int(self.energy.text)
-    def GetCurrentMaterial(self):
-        return int(self.material.text)
-    def GetCurrentPhysonium(self):
-        return int(self.physonium.text)
-    def IsReqForPlanet_1(self):
-        if (self.GetCurrentHuman() >= int(self.resources_1.values[0])) and (self.GetCurrentFood() >= int(self.resources_1.values[1])) and (self.GetCurrentEnergy() >= int(self.resources_1.values[2])) and (self.GetCurrentMaterial() >= int(self.resources_1.values[3])):
-            return True
-        else:
-            return False
-    def IsReqForPlanet_2(self):
-        if (self.GetCurrentHuman() >= int(self.resources_2.values[0])) and (self.GetCurrentFood() >= int(self.resources_2.values[1])) and (self.GetCurrentEnergy() >= int(self.resources_2.values[2])) and (self.GetCurrentMaterial() >= int(self.resources_2.values[3])):
-            return True
-        else:
-            return False
-    def SpeedFood(self, *args):
-        self.food_speed.text = str(args[1] * 3)
-    def SpeedEnergy(self, *args):
-        self.energy_speed.text = str(round(args[1] / 100 * 3, 2))
-    def SpeedMaterial(self, *args):
-        self.material_speed.text = str(round(args[1] / 13 * 2, 2))
-    def SpeedPhysonium(self, *args):
-        self.physonium_speed.text = str(round(args[1] / 100, 2))
-
 
 
     def TryToColonize(self, value):
@@ -128,6 +137,10 @@ class DropBut(Button):
         super(DropBut, self).__init__(**kwargs)
         self.drop_list = None
         self.drop_list = DropDown()
+        # self.drop_list.container = BoxLayout()§
+        # self.drop_list.on_container(self.drop_list, self.drop_list.container)
+        self.drop_list.bind(container=BoxLayout)
+
 
         types = ['Food', 'Materials', 'People', 'Energy', 'Phusonium']
 
@@ -158,9 +171,14 @@ class DropBut(Button):
 
 
         self.bind(on_release=self.drop_list.open)
-
-
         #self.drop_list.bind(on_select=lambda instance, x: setattr(self, 'text', x))
+
+# class ShuttleWindow(Screen):
+#     def __init__(self, **kwds):
+#         self.sound_click = SoundLoader.load('sounds/ckick.wav')
+#         self.sound_click.volume = 0.1
+#         super().__init__(**kwds)
+
 
 def PlaySound(sound):
     sound.play()
@@ -196,5 +214,10 @@ class MyDropDown(DropDown):
     pass
 
 class WindowManager(ScreenManager):
-    pass
+    current_planet = 1
+    planets_data = DataBase()
+
+    def to_planet_info(self, number):
+        #self.ids["PlanetInfo"].current_planet = number
+        self.current_planet = number
 

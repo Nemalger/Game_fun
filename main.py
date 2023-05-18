@@ -8,9 +8,6 @@ kv = Builder.load_file('windows.kv')
 phys = Physics()
 FPS = 60
 
-
-
-
 class GameApp(App):
     def build(self, **kwargs):
         return kv
