@@ -1,0 +1,49 @@
+Base const:
+  G:  6.674e-11 # гравитационная постоянная
+  stellar_constant:  1365 # звёздная постоянная [Вт/м]
+  C:  4180 # удельная теплоёмкость воды
+  R:  6371000
+  alfa:  0.3977 #ось наклона земли
+  Growth_constant: 1.5
+  M: 5.9742e+24
+Variable parameters:
+  k:  (5.08 * 10**11)/(3.14 * R**2 * alfa)
+  g:  (G*M)/(R**2)
+  h:  Growth_constant/g
+  #средняя температура планеты
+  T:  k * stellar_constant
+  #Энергия от солнечных панелей 
+  E_silar_panel:  0.24 * stellar_constant
+  #Энергия от ядерных реакторов
+  E_nuclear_reactor:  (0.6 * 5555)/(C * 633)
+Functions:
+  food:
+    arguments:
+      - t
+      - p
+      - P
+    formula: (0.25*T *(h**2) * t * (p/100)) - (P/200)
+  energy:
+    arguments:
+      -t
+      -p
+    formula:
+      t*(((E_silar_panel + E_nuclear_reactor) *(1/374)) * p/1000)
+  
+  population:
+    arguments:
+      -t
+      -food
+      -energy
+
+    formula:
+      1.8 * ((2*food + 0.2*energy) ** 1/2) - (t * 5)
+  resources:
+    arguments:
+      -t
+      -people
+      -energy
+    formula:
+      t*((0.15* (people/1000 * energy) - g)) if t*((0.15* people + energy) - g) > 0 else 0
+
+
