@@ -1,0 +1,77 @@
+Base const:
+  G:  6.674e-11 # гравитационная постоянная
+  stellar_constant:  1365 # звёздная постоянная [Вт/м]
+  C:  4180 # удельная теплоёмкость воды
+  R:  6371000
+  alfa:  0.3977 #ось наклона земли
+  Growth_constant: 1.5
+  M: 5.9742e+24
+  Md: 2.5e+13
+Variable parameters:
+  k:  (5.08 * 10**11)/(3.14 * R**2 * alfa)
+  g:  (G*M)/(R**2)
+  h:  Growth_constant/g
+  #средняя температура планеты
+  T:  k * stellar_constant
+  #Энергия от солнечных панелей 
+  E_silar_panel:  0.24 * stellar_constant
+  #Энергия от ядерных реакторов
+  E_nuclear_reactor:  (0.6 * 5555)/(C * 633)
+Functions:
+  food:
+    arguments:
+      - p
+      - P
+      - F
+    formula: F + (0.5*((1+p)**1.1)*(0.25*T * (h**2))- (P)) if    F + (0.05*((1+p)**1.1)*(0.25*T * (h**2))- (P)) > 0 else 0.0001
+  energy:
+    arguments:
+      -t
+      -p
+      -energy
+    formula:
+      energy + 0.001 * (((0.00001 *(E_silar_panel + E_nuclear_reactor) ) * (0.25*p)**1.2) - 0.001*P) if energy + 0.0001 * (((0.00001 *(E_silar_panel + E_nuclear_reactor) ) * (0.25*p)**1.2) - P)> 0 else 0.0001
+  
+  population:
+    arguments:
+
+      -F
+      -energy
+      -P
+    formula:
+      (P + ((((F * energy)/10)**1.02)-(P/10)))
+#      (energy*food)*P*(1 - P)
+  resources:
+    arguments:
+      -res
+      -p
+      -P
+      -E
+    formula:
+     res + (((p * E) - P)) if res + ((p + E) - P) > 0 else 0.00001
+  Ax:
+    arguments:
+      -x
+      -y
+      -x0
+      -y0
+
+
+    formula: (G * Md * (x0 - x)) / (((x - x0)**2 + (y - y0)**2))**1.5
+
+  Ay:
+    arguments:
+      -x
+      -y
+      -x0
+      -y0
+
+
+    formula: (G * Md * (y0 - y)) / (((x - x0)**2 + (y - y0)**2))**1.5
+
+
+
+
+
+
+

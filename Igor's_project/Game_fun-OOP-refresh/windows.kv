@@ -1,0 +1,446 @@
+#:import Factory kivy.factory.Factory
+<Planet>:
+    orientation: "vertical"
+    size_hint: 0.33, 0.8
+    pos_hint: {"center": (root.pos_x, root.pos_y)}
+
+    Image:
+        id: im_planet
+        size_hint: 1, 1
+        #pos_hint_x: -0.6
+        source: root.im_source #f"images/planet_{root.number_of_planet}_256_dark.png"
+    Label:
+        id: status
+        text: root.status
+    Label:
+        text: "Planet resources:"
+        bold: True
+    BoxLayout:
+        Image:
+            source: "images/human_Icon2.png"
+        Label:
+            id: humans
+            text: f"{root.humans}"
+    BoxLayout:
+        Image:
+            source: "images/food_Icon.png"
+        Label:
+            id: food
+            text: f"{root.food}"
+    BoxLayout:
+        Image:
+            source: "images/energy_Icon.png"
+        Label:
+            id: energy
+            text: f"{root.energy}"
+    BoxLayout:
+        Image:
+            source: "images/material_Icon.png"
+        Label:
+            id: materials
+            text: f"{root.materials}"
+    BoxLayout:
+        Image:
+            source: "images/physonium_Icon.png"
+
+        Label:
+            id: physonium
+            text: f"{root.physonium}"
+
+    Button:
+        id: try_to_colonize
+
+        size_hint: 0.8, 0.3
+        text: "Try to colonize!"
+        background_normal: ''
+        background_color: (1, 0.7, 0.2, 1)
+        bold: True
+        outline_color: (0, 0, 0)
+        outline_width: 2
+        on_press: root.ButtonClicked()
+        on_release: root.TryToColonize(1)
+
+WindowManager:
+    MenuWindow:
+    MapOfPlanetsWindow:
+        id: MapOfPlanets_window
+    SettingsWindow:
+        id: settings
+    PlanetInfoWindow:
+        id: PlanetInfo
+#    ShuttleWindow:
+#        id: Shuttle
+
+
+<MenuWindow>
+    name: "Menu"
+    FloatLayout:
+        size: root.width, root.height * 0.66
+        Label:
+            text: "Team ABOBA presented:"
+            font_size: 60
+            pos_hint: {'center': (0.5, 0.9)}
+        Label:
+            text: "Star Sector 2.0"
+            font_size: 65
+            bold: True
+            pos_hint: {'center': (0.5, 0.83)}
+        Button:
+            text: "Play"
+
+            pos_hint: {'x': 0.40, 'y': 0.45}
+            size_hint: (0.2, 0.1)
+            on_press: root.ButtonClicked()
+            on_release:
+                app.root.current = "MapOfPlanets"
+                root.manager.transition.direction = "down"
+                app.time = 0
+
+            background_normal: ''
+            background_color: (1, 0.3, 0, 1)
+            bold: True
+            outline_color: (0, 0, 0)
+            outline_width: 2
+
+        Button:
+            text: "Settings"
+
+            pos_hint: {'x': 0.4, 'y': 0.33}
+            size_hint: (0.2, 0.1)
+            on_press: root.ButtonClicked()
+            on_release:
+                app.root.current = "Settings"
+                root.manager.transition.direction = "left"
+            background_normal: ''
+            background_color: (1, 0.7, 0.2, 1)
+            bold: True
+            outline_color: (0, 0, 0)
+            outline_width: 2
+
+        Button:
+            text: "Leave"
+            background_normal: ''
+            size_hint: (None, None)
+            width: 200
+            height: 100
+            background_color: (1, 0.7, 0.2, 1)
+
+
+# -------------------------------------------
+<Warning@Popup>
+    auto_dismiss: False
+    title: "The game will be ended. Are you sure?"
+    size_hint: 0.6, 0.2
+    pos_hint: {"x":0.2, "top": 0.7}
+    BoxLayout:
+        spacing: 20
+        padding: 20
+        Button:
+            text: "Cancel"
+            on_release: root.dismiss()
+            background_normal: ''
+            background_color: (1, 0.7, 0.2, 1)
+            bold: True
+            outline_color: (0, 0, 0)
+            outline_width: 2
+        Button:
+            text: "Leave"
+            background_normal: ''
+            background_color: (1, 0.7, 0.2, 1)
+            bold: True
+            outline_color: (0, 0, 0)
+            outline_width: 2
+            on_release:
+                app.root.current = "Menu"
+                root.dismiss()
+                # проблема в анимации и в звуке клика
+
+
+<MapOfPlanetsWindow>
+    name: "MapOfPlanets"
+    FloatLayout:
+        Button:
+            on_press: root.ButtonClicked()
+            on_release:
+                root.parent.to_planet_info(1)
+                app.root.current = "PlanetInfo"
+                root.manager.transition.direction = "down"
+            size_hint: (0.15, 0.1)
+            pos_hint: {'center': (0.2, 0.5)}
+            background_color: 0, 0, 0, 1
+        Image:
+            source: "images/planet_1_256_light.png"
+            pos_hint: {'center': (0.2, 0.5)}
+
+
+        Button:
+            on_press: root.ButtonClicked()
+            on_release:
+                root.parent.to_planet_info(2)
+                app.root.current = "PlanetInfo"
+                root.manager.transition.direction = "down"
+            size_hint: (0.15, 0.1)
+            pos_hint: {'center': (0.5, 0.5)}
+        Image:
+            source: "images/planet_2_256_light.png"
+            pos_hint: {'center': (0.5, 0.5)}
+
+        Button:
+            on_press: root.ButtonClicked()
+            on_release:
+                root.parent.to_planet_info(3)
+                app.root.current = "PlanetInfo"
+                root.manager.transition.direction = "down"
+            size_hint: (0.15, 0.1)
+            pos_hint: {'center': (0.8, 0.5)}
+        Image:
+            source: "images/planet_2_256_dark.png"
+            pos_hint: {'center': (0.8, 0.5)}
+            size_hint: 1, 1
+
+        Label:
+            id: clock
+            text: "Day:"
+            pos_hint: {'center': (0.95, 0.15)}
+
+        DropBut:
+            size_hint: 0.2, 0.1
+            pos_hint: {'center': (0.95, 0.15)}
+
+        Button:
+            text: "Back"
+
+            on_press: root.ButtonClicked()
+            on_release: Factory.Warning().open()
+            size_hint: (0.15, 0.1)
+            background_normal: ''
+            background_color: (1, 0.7, 0.2, 1)
+            bold: True
+            outline_color: (0, 0, 0)
+            outline_width: 2
+
+
+<PlanetInfoWindow>
+    name: "PlanetInfo"
+    current_planet: 2
+    on_enter:
+        self.update_planet(root.parent.current_planet)
+    FloatLayout:
+        Planet:
+            id: showing_planet
+            im_source: "images/planet_1_256_dark.png"
+            number_of_planet: 2
+            status: "Not Colonized"
+            humans: 10
+            food: 100
+            energy: 1
+            materials: 1
+            physonium: 1
+            humans: 0
+            pos_x: 0.12
+            pos_y: 0.6
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 0.33, 0.8
+            pos_hint: {'center': (0.45, 0.6)}
+
+            Label:
+                text: "Manufactures:"
+                #pos_hint: {'center': (0.45, 0.95)}
+
+            Slider:
+                id: food_manufacture
+                min: 0
+                max: showing_planet.humans
+                step: 1
+                #pos_hint: {'center': (0.45, 0.8)}
+                size_hint: (0.8, 0.1)
+
+                cursor_image: "images/human_Icon2.png"
+            Label:
+                text: str(int(food_manufacture.value))
+                #pos_hint: {'center': (0.6, 0.8)}
+
+            Slider:
+                id: energy_manufacture
+                min: 0
+                max: showing_planet.humans - food_manufacture.value
+                step: 1
+                #pos_hint: {'center': (0.45, 0.7)}
+                size_hint: (0.8, 0.1)
+                cursor_image: "images/human_Icon2.png"
+            Label:
+                text: str(int(energy_manufacture.value))
+                #pos_hint: {'center': (0.6, 0.7)}
+
+            Slider:
+                id: materials_manufacture
+                min: 0
+                max: showing_planet.humans - food_manufacture.value - energy_manufacture.value
+                step: 1
+                #pos_hint: {'center': (0.45, 0.6)}
+                size_hint: (0.8, 0.1)
+                cursor_image: "images/human_Icon2.png"
+            Label:
+                text: str(int(materials_manufacture.value))
+               #pos_hint: {'center': (0.6, 0.6)}
+            Slider:
+                id: physonium_manufacture
+                min: 0
+                max: showing_planet.humans - food_manufacture.value - energy_manufacture.value - materials_manufacture.value
+                step: 1
+                #pos_hint: {'center': (0.45, 0.5)}
+                size_hint: (0.8, 0.1)
+                cursor_image: "images/human_Icon2.png"
+
+            Label:
+                text: str(int(physonium_manufacture.value))
+                #pos_hint: {'center': (0.6, 0.5)}
+
+        Label:
+            text: "Food farms"
+            pos_hint: {'center': (0.7, 0.9)}
+        Label:
+            id: food_factory
+            text: "1"
+            pos_hint: {'center': (0.85, 0.9)}
+        Button:
+            text: "+"
+            pos_hint: {'center': (0.9, 0.9)}
+            size_hint: 0.03, 0.03
+            background_normal: ''
+            background_color: (1, 0.7, 0.2, 1)
+            bold: True
+            outline_color: (0, 0, 0)
+            outline_width: 2
+            on_press: root.ButtonClicked()
+        Label:
+
+            text: "Energy factory"
+            pos_hint: {'center': (0.7, 0.8)}
+        Label:
+            id: energy_factory
+            text: "1"
+            pos_hint: {'center': (0.85, 0.8)}
+        Button:
+            text: "+"
+            pos_hint: {'center': (0.9, 0.8)}
+            size_hint: 0.03, 0.03
+            background_normal: ''
+            background_color: (1, 0.7, 0.2, 1)
+            bold: True
+            outline_color: (0, 0, 0)
+            outline_width: 2
+            on_press: root.ButtonClicked()
+        Label:
+            text: "Materials factory"
+            pos_hint: {'center': (0.7, 0.7)}
+        Label:
+            id: materials_factory
+            text: "0"
+            pos_hint: {'center': (0.85, 0.7)}
+        Button:
+            text: "+"
+            pos_hint: {'center': (0.9, 0.7)}
+            size_hint: 0.03, 0.03
+            background_normal: ''
+            background_color: (1, 0.7, 0.2, 1)
+            bold: True
+            outline_color: (0, 0, 0)
+            outline_width: 2
+            on_press: root.ButtonClicked()
+        Label:
+            text: "Physonium factory"
+            pos_hint: {'center': (0.7, 0.6)}
+        Label:
+            id: physonium_factory
+            text: "0"
+            pos_hint: {'center': (0.85, 0.6)}
+        Button:
+            text: "+"
+            pos_hint: {'center': (0.9, 0.6)}
+            size_hint: 0.03, 0.03
+            background_normal: ''
+            background_color: (1, 0.7, 0.2, 1)
+            bold: True
+            outline_color: (0, 0, 0)
+            outline_width: 2
+            on_press: root.ButtonClicked()
+
+        Button:
+            text: "Back"
+
+            on_press: root.ButtonClicked()
+            on_release:
+                app.root.current = "MapOfPlanets"
+                root.manager.transition.direction = "up"
+
+            size_hint: (0.15, 0.1)
+            background_normal: ''
+            background_color: (1, 0.7, 0.2, 1)
+            bold: True
+            outline_color: (0, 0, 0)
+            outline_width: 2
+
+
+# ----------------------------------------------
+<SettingsWindow>
+    name: "Settings"
+    slide_main_volume: MainVolume
+    slide_music_volume: MusicVolume
+    BoxLayout:
+
+        orientation: "vertical"
+        size: root.width, root.height
+        Label:
+            text: "Settings:"
+            font_size: 60
+            bold: True
+
+        Label:
+            text: "Main Volume:"
+            font_size: 50
+        BoxLayout:
+            padding: 50
+            Slider:
+                min: 0
+                max: 100
+                step: 5
+                orientation: "horizontal"
+
+                on_value: root.ChangeMainVolume(*args)
+            Label:
+                id: MainVolume
+                text: "0"
+                font_size: 40
+
+        Label:
+            text: "Music Volume:"
+            font_size: 50
+        BoxLayout:
+            spacing: 20
+            padding: 50
+            Slider:
+                min: 0
+                max: 100
+                step: 5
+                orientation: "horizontal"
+                value: 0
+                on_value: root.ChangeMusicVolume(*args)
+            Label:
+                id: MusicVolume
+                text: "0"
+                font_size: 40
+
+        Button:
+            text: "Back"
+            on_press: root.ButtonClicked()
+            on_release:
+                app.root.current = "Menu"
+                root.manager.transition.direction = "right"
+
+            size_hint: (0.15, 0.5)
+
+            background_color: (1, 0.7, 0.2, 1)
+            background_normal: ''
