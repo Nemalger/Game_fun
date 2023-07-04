@@ -1,0 +1,48 @@
+
+
+
+<Dynamics>:
+    Button:
+        size: 12, 12
+        pos: self.parent.pos
+        on_press: app.root.current = "2"
+    Image:
+        source: root.image_source
+        size: 15, 15
+        pos: self.parent.pos
+
+
+<Scene_2>:
+    name: "2"
+
+
+
+<Scene>:
+    name: "1"
+
+
+    planet1: planet1
+    planet2: planet2
+    Image:
+        id: star
+        source: "../images/human_Icon2.png"
+        size: 50, 50
+#        center_x: 0
+#        center_y: 0
+        pos: 0, 0
+
+    Dynamics:
+        velocity_x: 0.1
+        velocity_y: 0.1
+        id: planet1
+        size: 12, 12
+        pos: 200, 400
+        image_source: "../images/planet_1_256_dark.png"
+        bt_source:
+    Dynamics:
+        id: planet2
+        size: 10, 10
+        pos: 300, 200
+        velocity_x: -0.34
+        image_source: "../images/planet_2_256_dark.png"
+        bt_source:
